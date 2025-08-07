@@ -160,7 +160,182 @@
         // --- DATENBANK DER FRAGEN ---
         // is_dogma: true -> Aussage ist ein Dogma (Antwort "Wahr" ist korrekt)
         // is_dogma: false -> Aussage ist eine Häresie (Antwort "Falsch" ist korrekt)
-        const allQuestions = [
+const allQuestions = [
+    // =================================================================
+    // HÄRESIEN UND VERURTEILUNGEN (is_dogma: false)
+    // Die korrekte Antwort ist immer "Falsch"
+    // =================================================================
+
+    // --- Gott und Dreieinigkeit ---
+    { dh_number: "DH 48", text: "Es ist korrekt, die eine Macht Gottes in drei verschiedene Mächte, Substanzen oder Gottheiten aufzuteilen.", is_dogma: false, heresy_group: "Tritheismus" },
+    { dh_number: "DH 48", text: "Der Sohn ist mit dem Vater identisch und umgekehrt.", is_dogma: false, heresy_group: "Sabellianismus" },
+    { dh_number: "DH 59", text: "Der Heilige Geist ist nicht von derselben Kraft und Substanz wie der Vater und der Sohn.", is_dogma: false, heresy_group: "Macedonianismus" },
+    { dh_number: "DH 60", text: "Der Vater und der Sohn sind ein und dieselbe Person (Sabellianischer Irrtum).", is_dogma: false, heresy_group: "Sabellianismus" },
+    { dh_number: "DH 61", text: "Der Sohn und der Heilige Geist sind Geschöpfe.", is_dogma: false, heresy_group: "Arianismus" },
+    { dh_number: "DH 62", text: "Es ist akzeptabel, nur die Namen zu ändern, aber an der mazedonischen Häresie (Leugnung der Gottheit des Hl. Geistes) festzuhalten.", is_dogma: false, heresy_group: "Macedonianismus" },
+    { dh_number: "DH 68", text: "Der Vater, der Sohn und der Heilige Geist existieren nicht von Ewigkeit her.", is_dogma: false, heresy_group: "Arianismus" },
+    { dh_number: "DH 76", text: "Der Heilige Geist ist ein Geschöpf oder wurde vom Sohn gemacht.", is_dogma: false, heresy_group: "Macedonianismus" },
+    { dh_number: "DH 78", text: "Es gibt keine eine Gottheit, Herrschaft und Macht der Dreieinigkeit.", is_dogma: false, heresy_group: null },
+    { dh_number: "DH 82", text: "Die Dreieinigkeit sollte als drei Götter verstanden werden.", is_dogma: false, heresy_group: "Tritheismus" },
+    { dh_number: "DH 213", text: "Es gibt nicht eine einzige Natur, Substanz und Kraft des Vaters, des Sohnes und des Heiligen Geistes.", is_dogma: false, heresy_group: null },
+    { dh_number: "DH 370", text: "Der Heilige Geist ist die Seele der Welt.", is_dogma: false, heresy_group: null },
+    { dh_number: "DH 431", text: "Die Lehre von Peter Lombard impliziert, dass es vier Gottheiten gibt (Vater, Sohn, Hl. Geist und die göttliche Essenz als Vierte).", is_dogma: false, heresy_group: null },
+    { dh_number: "DH 502", text: "Die Welt existierte von Ewigkeit her und wurde nicht in der Zeit erschaffen.", is_dogma: false, heresy_group: null },
+    { dh_number: "DH 1315", text: "Die Darstellung Gottes des Vaters in einem Tempel oder einer Kirche ist unrechtmäßig.", is_dogma: false, heresy_group: null },
+    { dh_number: "DH 1569", text: "Bilder der unbegreiflichen Dreieinigkeit sollten aus der Kirche entfernt werden.", is_dogma: false, heresy_group: null },
+    { dh_number: "DH 1701", text: "Gott ist mit der Welt oder der Natur identisch (Pantheismus).", is_dogma: false, heresy_group: "Pantheismus" },
+    { dh_number: "DH 1703", text: "Die menschliche Vernunft ist der alleinige Richter über Wahres und Falsches.", is_dogma: false, heresy_group: "Rationalismus" },
+    { dh_number: "DH 1705", text: "Die göttliche Offenbarung ist unvollkommen und unterliegt einem ständigen Fortschritt, der der Entwicklung der menschlichen Vernunft entspricht.", is_dogma: false, heresy_group: "Modernismus" },
+    { dh_number: "DH 1802", text: "Es existiert nichts außer Materie.", is_dogma: false, heresy_group: "Materialismus" },
+    { dh_number: "DH 1803", text: "Die Substanz Gottes und die Substanz aller Dinge ist ein und dasselbe.", is_dogma: false, heresy_group: "Pantheismus" },
+    { dh_number: "DH 1805", text: "Gott hat die Welt nicht aus freiem Willen erschaffen, sondern aus Notwendigkeit.", is_dogma: false, heresy_group: null },
+    { dh_number: "DH 1818", text: "Die Dogmen der Kirche können im Laufe der Zeit eine andere Bedeutung annehmen, als die Kirche sie ursprünglich verstanden hat.", is_dogma: false, heresy_group: "Modernismus" },
+    { dh_number: "DH 2074", text: "Der Glaube ist lediglich ein blindes religiöses Gefühl, das aus den Tiefen des Unterbewusstseins unter dem Drang des Herzens hervorbricht.", is_dogma: false, heresy_group: "Modernismus" },
+    { dh_number: "DH 2082", text: "Alle Religionen sind gleichermassen wahr.", is_dogma: false, heresy_group: "Indifferentismus" },
+    { dh_number: "DH 2105", text: "Der Modernismus ist die Synthese aller Häresien.", is_dogma: false, heresy_group: "Modernismus" }, // Ironischerweise ist die Verurteilung selbst eine Aussage
+    { dh_number: "DH 2306", text: "Ein umfassender Evolutionismus, Existentialismus oder Historizismus sind mit der katholischen Lehre vereinbar.", is_dogma: false, heresy_group: null },
+    { dh_number: "DH 2318", text: "Engel sind keine persönlichen Wesen.", is_dogma: false, heresy_group: null },
+
+    // --- Christologie ---
+    { dh_number: "DH 49", text: "Der Sohn Gottes ist ein Werk oder ein Geschöpf; es gab eine Zeit, da er nicht war.", is_dogma: false, heresy_group: "Arianismus" },
+    { dh_number: "DH 64", text: "Man muss zwei Söhne annehmen: einen, der von Ewigkeit her Gott ist, und einen anderen, der durch die Annahme des Fleisches von Maria Mensch wurde.", is_dogma: false, heresy_group: "Nestorianismus" },
+    { dh_number: "DH 65", text: "Das Wort Gottes wohnte im Körper Christi anstelle einer menschlichen Seele.", is_dogma: false, heresy_group: "Apollinarianismus" },
+    { dh_number: "DH 72", text: "Am Kreuz fühlte Gott der Vater Schmerz, nicht der von ihm angenommene menschliche Körper.", is_dogma: false, heresy_group: null },
+    { dh_number: "DH 73", text: "Christus sitzt nicht im Fleisch zur Rechten des Vaters, sondern nur in seiner göttlichen Natur.", is_dogma: false, heresy_group: null },
+    { dh_number: "DH 215", text: "Eine Person ist das Wort Gottes, eine andere ist die Person Christi, die gelitten hat.", is_dogma: false, heresy_group: "Nestorianismus" },
+    { dh_number: "DH 220", text: "Durch die Vereinigung in Christus verschmolzen die göttliche und die menschliche Natur zu einer einzigen neuen Natur.", is_dogma: false, heresy_group: "Monophysitismus" },
+    { dh_number: "DH 221", text: "Man muss Christus in seinen zwei Naturen mit zwei verschiedenen Anbetungen verehren.", is_dogma: false, heresy_group: "Nestorianismus" },
+    { dh_number: "DH 251", text: "In Christus gibt es nur einen einzigen Willen (Monotheletismus).", is_dogma: false, heresy_group: "Monotheletismus" },
+    { dh_number: "DH 299", text: "Jesus Christus ist dem Fleische nach nur ein adoptierter Sohn Gottes.", is_dogma: false, heresy_group: "Adoptionismus" },
+    { dh_number: "DH 385", text: "Die Seele Christi stieg nicht wirklich in die Hölle herab, sondern nur durch ihre Kraft.", is_dogma: false, heresy_group: null },
+    { dh_number: "DH 511", text: "Alles, was die Heilige Schrift über Christus sagt, gilt gleichermaßen für jeden guten und göttlichen Menschen.", is_dogma: false, heresy_group: null },
+    { dh_number: "DH 2027", text: "Die Gottheit Jesu Christi lässt sich aus den Evangelien nicht beweisen.", is_dogma: false, heresy_group: "Modernismus" },
+    { dh_number: "DH 2029", text: "Der 'historische Christus' ist dem 'Christus des Glaubens' unterlegen und unterscheidet sich von ihm.", is_dogma: false, heresy_group: "Modernismus" },
+    { dh_number: "DH 2034", text: "Christus besaß kein grenzenloses Wissen, sondern irrte sich in einigen Dingen.", is_dogma: false, heresy_group: "Modernismus" },
+    { dh_number: "DH 2036", text: "Die Auferstehung Christi ist kein historischer Fakt, sondern eine rein übernatürliche Erfahrung, die nicht bewiesen werden kann.", is_dogma: false, heresy_group: "Modernismus" },
+    { dh_number: "DH 2038", text: "Die Lehre vom Sühnetod Christi ist keine Lehre Jesu, sondern eine des Apostels Paulus.", is_dogma: false, heresy_group: "Modernismus" },
+
+    // --- Natur des Menschen, Erbsünde und Gnade ---
+    { dh_number: "DH 101", text: "Adam war von Natur aus sterblich und wäre auch ohne die Sünde gestorben.", is_dogma: false, heresy_group: "Pelagianismus" },
+    { dh_number: "DH 102", text: "Säuglinge haben keine Erbsünde, die in der Taufe abgewaschen werden muss.", is_dogma: false, heresy_group: "Pelagianismus" },
+    { dh_number: "DH 105", text: "Die Gebote Gottes können auch ohne die Gnade erfüllt werden, wenn auch mit mehr Mühe.", is_dogma: false, heresy_group: "Pelagianismus" },
+    { dh_number: "DH 1002", text: "Ein gutes Werk ist aus reiner Natur heraus verdienstlich für das ewige Leben, ohne dass Gnade erforderlich ist.", is_dogma: false, heresy_group: "Pelagianismus" },
+    { dh_number: "DH 1021", text: "Die Erhebung der menschlichen Natur in den Stand der Gotteskindschaft ist eine natürliche Bedingung und keine Gnadengabe.", is_dogma: false, heresy_group: "Baius" },
+    { dh_number: "DH 1025", text: "Alle Werke von Ungläubigen sind ausnahmslos Sünden.", is_dogma: false, heresy_group: "Baius/Jansenismus" },
+    { dh_number: "DH 1027", text: "Der freie Wille hat ohne die Gnade Gottes nur die Macht zu sündigen.", is_dogma: false, heresy_group: "Jansenismus" },
+    { dh_number: "DH 1073", text: "Die selige Jungfrau Maria starb aufgrund der Sünde, die sie von Adam geerbt hatte.", is_dogma: false, heresy_group: null },
+    { dh_number: "DH 1092", text: "Einige Gebote Gottes sind für die Gerechten, selbst wenn sie es wollen und sich bemühen, unmöglich zu erfüllen.", is_dogma: false, heresy_group: "Jansenismus" },
+    { dh_number: "DH 1096", text: "Christus ist nur für die Auserwählten gestorben.", is_dogma: false, heresy_group: "Jansenismus" },
+    { dh_number: "DH 1294", text: "Christus hat sich selbst als Opfergabe nur für die Erlösung der Auserwählten dargebracht.", is_dogma: false, heresy_group: "Jansenismus" },
+    { dh_number: "DH 1305", text: "Die Reue aus Furcht vor der Hölle (attritio) ist kein guter und übernatürlicher Beweggrund.", is_dogma: false, heresy_group: "Jansenismus" },
+    { dh_number: "DH 1379", text: "Außerhalb der Kirche wird keine Gnade gewährt.", is_dogma: false, heresy_group: "Jansenismus" },
+    { dh_number: "DH 1516", text: "Der Zustand der Unschuld vor dem Fall war der natürliche Zustand des Menschen, keine übernatürliche Gnadengabe.", is_dogma: false, heresy_group: "Baius" },
+    { dh_number: "DH 2328", text: "Es ist für Katholiken erlaubt zu lehren, dass die Menschheit von mehreren Ur-Elternpaaren abstammt (Polygenismus).", is_dogma: false, heresy_group: null },
+
+    // --- Sakramente ---
+    { dh_number: "DH 47", text: "Der Name Christi allein genügt zur Heiligung der Taufe, auch ohne die trinitarische Formel.", is_dogma: false, heresy_group: null },
+    { dh_number: "DH 99", text: "Die Letzte Ölung darf nicht Büßern gespendet werden, die noch nicht mit der Kirche versöhnt sind.", is_dogma: false, heresy_group: null },
+    { dh_number: "DH 410", text: "Die Taufe von Kindern ist nutzlos, da ihnen keine Gnade eingegossen wird.", is_dogma: false, heresy_group: null },
+    { dh_number: "DH 424", text: "Die von einem sündhaften Priester gespendeten Sakramente sind ungültig.", is_dogma: false, heresy_group: "Donatismus" },
+    { dh_number: "DH 544", text: "Im Sakrament der Eucharistie findet keine wirkliche Verwandlung (Transsubstantiation) statt.", is_dogma: false, heresy_group: "Protestantismus" },
+    { dh_number: "DH 545", text: "Ein Priester oder Bischof verliert seine Weihegewalt, wenn er eine schwere Sünde begeht.", is_dogma: false, heresy_group: "Donatismus" },
+    { dh_number: "DH 581", text: "Die Substanz von Brot und Wein bleibt nach der Wandlung im Altarssakrament erhalten.", is_dogma: false, heresy_group: "Wycliffismus" },
+    { dh_number: "DH 626", text: "Die Kommunion für Laien nur unter der Gestalt des Brotes ist ein Sakrileg.", is_dogma: false, heresy_group: "Hussiten" },
+    { dh_number: "DH 741", text: "Die Sakramente verleihen die Gnade nicht durch die vollzogene Handlung (ex opere operato), sondern nur durch den Glauben des Empfängers.", is_dogma: false, heresy_group: "Protestantismus" },
+    { dh_number: "DH 748", text: "Man muss nicht alle Sünden beichten, da es unmöglich ist, sich an alle zu erinnern.", is_dogma: false, heresy_group: "Protestantismus" },
+    { dh_number: "DH 757", text: "Die Schätze der Kirche, aus denen Ablässe gewährt werden, sind nicht die Verdienste Christi und der Heiligen.", is_dogma: false, heresy_group: "Protestantismus" },
+    { dh_number: "DH 847", text: "Die Sakramente sind für das Heil nicht notwendig, sondern nur zur Nährung des Glaubens gestiftet.", is_dogma: false, heresy_group: "Protestantismus" },
+    { dh_number: "DH 855", text: "Ein Priester in Todsünde spendet kein gültiges Sakrament.", is_dogma: false, heresy_group: "Donatismus" },
+    { dh_number: "DH 869", text: "Kleinkinder, die noch keinen eigenen Glaubensakt vollziehen können, sollten nicht zu den Gläubigen gezählt werden.", is_dogma: false, heresy_group: null },
+    { dh_number: "DH 888", text: "Es ist Götzendienst, Christus im Sakrament der Eucharistie anzubeten.", is_dogma: false, heresy_group: "Protestantismus" },
+    { dh_number: "DH 916", text: "Die sakramentale Beichte ist eine rein menschliche Erfindung und nicht von Gott für das Heil eingesetzt.", is_dogma: false, heresy_group: "Protestantismus" },
+    { dh_number: "DH 950", text: "Das Messopfer ist nur ein Lob- und Dankopfer, aber kein Sühneopfer.", is_dogma: false, heresy_group: "Protestantismus" },
+    { dh_number: "DH 971", text: "Die Ehe ist kein wahres und eigentliches Sakrament.", is_dogma: false, heresy_group: "Protestantismus" },
+    { dh_number: "DH 977", text: "Das Band einer gültigen und vollzogenen Ehe kann aufgrund von Ehebruch aufgelöst werden.", is_dogma: false, heresy_group: null },
+    { dh_number: "DH 979", text: "Kleriker in höheren Weihen oder Ordensleute mit Keuschheitsgelübde können gültig heiraten.", is_dogma: false, heresy_group: null },
+    { dh_number: "DH 1529", text: "Die Lehre von der Transsubstantiation kann in der Katechese vernachlässigt werden, da sie rein scholastisch ist.", is_dogma: false, heresy_group: "Synode von Pistoia" },
+    { dh_number: "DH 1963", text: "Die Priesterweihen der anglikanischen Kirche sind gültig.", is_dogma: false, heresy_group: null },
+    { dh_number: "DH 2043", text: "Die Kindertaufe ist nicht auf Christus zurückzuführen, sondern eine spätere disziplinäre Entwicklung.", is_dogma: false, heresy_group: "Modernismus" },
+    { dh_number: "DH 2240", text: "Jede absichtliche Unterbrechung des Eheaktes, um die Zeugung zu verhindern, ist moralisch erlaubt.", is_dogma: false, heresy_group: null },
+
+    // --- Kirche und Hierarchie ---
+    { dh_number: "DH 616", text: "Der Papst und der Klerus sind Häretiker, wenn sie weltlichen Besitz haben.", is_dogma: false, heresy_group: "Waldenser/Spiritualen" },
+    { dh_number: "DH 1091", text: "Petrus und Paulus sind zwei gleichberechtigte Fürsten der Kirche und bilden ein einziges Haupt.", is_dogma: false, heresy_group: "Gallikanismus" },
+    { dh_number: "DH 1325", text: "Das Urteil des Papstes ist nicht unabänderlich, es sei denn, die Zustimmung der Kirche kommt hinzu.", is_dogma: false, heresy_group: "Gallikanismus" },
+    { dh_number: "DH 1502", text: "Die Macht des kirchlichen Dienstes wird von der Gemeinschaft der Gläubigen an die Hirten übertragen.", is_dogma: false, heresy_group: "Synode von Pistoia" },
+    { dh_number: "DH 1503", text: "Der römische Papst ist nur ein 'ministerielles Haupt', das seine Macht von der gesamten Kirche empfängt.", is_dogma: false, heresy_group: "Synode von Pistoia" },
+    { dh_number: "DH 1515", text: "Niemand gehört zum Leib der Kirche außer den wahren Anbetern in Geist und Wahrheit (d.h. den Prädestinierten).", is_dogma: false, heresy_group: "Jansenismus" },
+    { dh_number: "DH 1593", text: "Ein Nationalkonzil kann religiöse Streitigkeiten endgültig und ohne die Zustimmung des Papstes entscheiden.", is_dogma: false, heresy_group: "Gallikanismus" },
+    { dh_number: "DH 1677", text: "Man kann gute Hoffnung auf das ewige Heil all derer haben, die sich nicht in der wahren Kirche Christi befinden.", is_dogma: false, heresy_group: "Indifferentismus" },
+    { dh_number: "DH 1724", text: "Die Kirche hat keine Zwangsgewalt und keine direkte oder indirekte zeitliche Macht.", is_dogma: false, heresy_group: null },
+    { dh_number: "DH 1755", text: "Die Trennung von Kirche und Staat ist die ideale und für alle Gesellschaften anzustrebende Ordnung.", is_dogma: false, heresy_group: "Liberalismus" },
+    { dh_number: "DH 1777", text: "In unserer Zeit ist es nicht mehr zweckmäßig, dass die katholische Religion als einzige Staatsreligion angesehen wird.", is_dogma: false, heresy_group: "Liberalismus" },
+    { dh_number: "DH 1780", text: "Der römische Papst kann und sollte sich mit dem Fortschritt, dem Liberalismus und der modernen Zivilisation versöhnen.", is_dogma: false, heresy_group: "Liberalismus" },
+    { dh_number: "DH 1831", text: "Der Papst hat nicht die volle und oberste Jurisdiktionsgewalt über die universale Kirche.", is_dogma: false, heresy_group: "Gallikanismus" },
+    { dh_number: "DH 1851", text: "Das Recht auf Privateigentum ist keine natürliche, sondern eine rein menschliche Erfindung.", is_dogma: false, heresy_group: "Sozialismus" },
+    { dh_number: "DH 2056", text: "Die römische Kirche wurde nur aus politischen Gründen zum Haupt aller Kirchen, nicht durch eine Anordnung Christi.", is_dogma: false, heresy_group: "Modernismus" },
+    { dh_number: "DH 2091", text: "Die Autorität in der Kirche muss demokratisch sein, da sie aus dem Gewissen der Gläubigen stammt.", is_dogma: false, heresy_group: "Modernismus" },
+    { dh_number: "DH 2270", text: "Der Sozialismus ist mit der katholischen Lehre vereinbar.", is_dogma: false, heresy_group: "Sozialismus" },
+
+
+    // =================================================================
+    // DOGMEN UND GLAUBENSSÄTZE (is_dogma: true)
+    // Die korrekte Antwort ist immer "Wahr"
+    // =================================================================
+
+    // --- Gott und Dreieinigkeit ---
+    { dh_number: "DH 15", text: "Es gibt nur einen Gott in drei Personen: Vater, Sohn und Heiliger Geist, wobei der Heilige Geist vom Vater und dem Sohn ausgeht.", is_dogma: true, heresy_group: null },
+    { dh_number: "DH 39", text: "Wer gerettet werden will, muss vor allem den katholischen Glauben an die Dreieinigkeit halten, ohne die Personen zu vermischen oder die Substanz zu trennen.", is_dogma: true, heresy_group: null },
+    { dh_number: "DH 54", text: "Der Sohn ist vom Vater 'gezeugt, nicht geschaffen, wesensgleich mit dem Vater'.", is_dogma: true, heresy_group: null },
+    { dh_number: "DH 704", text: "In der Dreieinigkeit ist nichts früher oder später, nichts größer oder kleiner, sondern alle drei Personen sind gleich ewig und gleich groß.", is_dogma: true, heresy_group: null },
+    { dh_number: "DH 1782", text: "Es gibt einen wahren, lebendigen und persönlichen Gott, Schöpfer und Herr des Himmels und der Erde, der von der Welt real und dem Wesen nach unterschieden ist.", is_dogma: true, heresy_group: null },
+    { dh_number: "DH 1783", text: "Gott hat alles, was existiert, sowohl geistig als auch körperlich, aus dem Nichts erschaffen.", is_dogma: true, heresy_group: null },
+    { dh_number: "DH 1806", text: "Gott, der Ursprung und das Ziel aller Dinge, kann mit dem natürlichen Licht der menschlichen Vernunft aus den geschaffenen Dingen mit Sicherheit erkannt werden.", is_dogma: true, heresy_group: null },
+    { dh_number: "DH 2145", text: "Gott, der Anfang und das Ende aller Dinge, kann durch das natürliche Licht der menschlichen Vernunft aus den geschaffenen Dingen mit Sicherheit erkannt werden.", is_dogma: true, heresy_group: null },
+
+    // --- Christologie ---
+    { dh_number: "DH 40", text: "Christus ist vollkommener Gott und vollkommener Mensch, gleich dem Vater nach der Gottheit, aber geringer als der Vater nach der Menschheit.", is_dogma: true, heresy_group: null },
+    { dh_number: "DH 144", text: "Christus wurde in einer neuen Ordnung der Geburt empfangen: aus unversehrter Jungfräulichkeit, wobei die menschliche Natur, nicht aber die Schuld, angenommen wurde.", is_dogma: true, heresy_group: null },
+    { dh_number: "DH 148", text: "Ein und derselbe Christus muss in zwei Naturen, unvermischt, unveränderlich, unteilbar und ungetrennt, anerkannt werden.", is_dogma: true, heresy_group: null },
+    { dh_number: "DH 255", text: "Gott das Wort selbst, einer der heiligen Dreieinigkeit, ist vom Himmel herabgestiegen und wurde aus dem Heiligen Geist und Maria, der immerwährenden Jungfrau, Fleisch.", is_dogma: true, heresy_group: null },
+    { dh_number: "DH 263", text: "In Christus gibt es zwei natürliche Willen und zwei natürliche Operationen, einen göttlichen und einen menschlichen, die ungetrennt wirken.", is_dogma: true, heresy_group: null },
+    { dh_number: "DH 708", text: "Die Person des Sohnes, wahrer Gott, hat eine wahre und vollkommene menschliche Natur angenommen.", is_dogma: true, heresy_group: null },
+    { dh_number: "DH 709", text: "Der Sohn Gottes litt in der von ihm angenommenen Menschheit, starb, wurde begraben und ist am dritten Tage wieder auferstanden.", is_dogma: true, heresy_group: null },
+    { dh_number: "DH 1462", text: "Die Jungfrau Maria ist wahrhaft die Gottesmutter (Theotokos).", is_dogma: true, heresy_group: null },
+    { dh_number: "DH 2184", text: "Die Seele Christi besaß vom Augenblick ihrer Erschaffung an die beseligende Gottesschau.", is_dogma: true, heresy_group: null },
+    { dh_number: "DH 5003", text: "Die Jungfrau Maria ist wahrhaft Gottesmutter (Theotokos), weil sie Jesus Christus, den wahren Gott und wahren Menschen, geboren hat.", is_dogma: true, heresy_group: null },
+
+    // --- Natur des Menschen, Erbsünde und Gnade ---
+    { dh_number: "DH 173", text: "Kinder werden getauft zur Vergebung der Sünden, um in ihnen das zu reinigen, was sie durch die Zeugung (Erbsünde) auf sich gezogen haben.", is_dogma: true, heresy_group: null },
+    { dh_number: "DH 783", text: "Die Sünde Adams hat nicht nur ihm persönlich, sondern auch seinen Nachkommen geschadet und den Tod über alle gebracht.", is_dogma: true, heresy_group: null },
+    { dh_number: "DH 791", text: "Die Gnade Christi ist für alle heilsamen Akte, einschließlich des Anfangs des Glaubens, absolut notwendig.", is_dogma: true, heresy_group: null },
+    { dh_number: "DH 811", text: "Ein Mensch kann nicht durch seine eigenen Werke ohne die göttliche Gnade durch Jesus Christus gerechtfertigt werden.", is_dogma: true, heresy_group: null },
+    { dh_number: "DH 819", text: "Rechtfertigung ist nicht nur die Vergebung der Sünden, sondern auch die Heiligung und Erneuerung des inneren Menschen durch die eingegossene Liebe Gottes.", is_dogma: true, heresy_group: null },
+    { dh_number: "DH 1100", text: "Die selige Jungfrau Maria wurde vom ersten Augenblick ihrer Empfängnis an, durch eine einzigartige Gnade und ein Vorrecht des allmächtigen Gottes, von jedem Makel der Erbsünde unversehrt bewahrt.", is_dogma: true, heresy_group: null },
+    { dh_number: "DH 2327", text: "Die menschliche Seele wird unmittelbar von Gott erschaffen.", is_dogma: true, heresy_group: null },
+
+    // --- Sakramente ---
+    { dh_number: "DH 844", text: "Es gibt genau sieben Sakramente des Neuen Bundes, die alle von Jesus Christus eingesetzt wurden: Taufe, Firmung, Eucharistie, Buße, Letzte Ölung, Priesterweihe und Ehe.", is_dogma: true, heresy_group: null },
+    { dh_number: "DH 851", text: "Die Sakramente verleihen die Gnade 'ex opere operato' (durch die vollzogene Handlung), sofern der Empfänger kein Hindernis in den Weg legt.", is_dogma: true, heresy_group: null },
+    { dh_number: "DH 852", text: "Die drei Sakramente Taufe, Firmung und Priesterweihe prägen der Seele einen unauslöschlichen Charakter ein und können daher nicht wiederholt werden.", is_dogma: true, heresy_group: null },
+    { dh_number: "DH 874", text: "In der Eucharistie geschieht eine wunderbare und einzigartige Verwandlung der ganzen Substanz des Brotes in den Leib und der ganzen Substanz des Weines in das Blut Christi.", is_dogma: true, heresy_group: null },
+    { dh_number: "DH 883", text: "Im heiligsten Sakrament der Eucharistie ist der Leib und das Blut unseres Herrn Jesus Christus zusammen mit seiner Seele und Gottheit wahrhaft, wirklich und substantiell gegenwärtig.", is_dogma: true, heresy_group: null },
+    { dh_number: "DH 891", text: "Alle Gläubigen sind verpflichtet, mindestens einmal im Jahr, zur Osterzeit, die heilige Kommunion zu empfangen.", is_dogma: true, heresy_group: null },
+    { dh_number: "DH 916", text: "Die sakramentale Beichte aller nach der Taufe begangenen schweren Sünden bei einem Priester ist nach göttlichem Recht für das Heil notwendig.", is_dogma: true, heresy_group: null },
+    { dh_number: "DH 963", text: "Die Priesterweihe (Ordo) ist ein wahres und eigentliches Sakrament des Neuen Bundes.", is_dogma: true, heresy_group: null },
+    { dh_number: "DH 990", text: "Ehen, die nicht in der vom Konzil von Trient vorgeschriebenen Form (vor einem Priester und Zeugen) geschlossen werden, sind ungültig.", is_dogma: true, heresy_group: null },
+    { dh_number: "DH 2236", text: "Eine gültig geschlossene und vollzogene christliche Ehe ist absolut unauflöslich und kann durch keine menschliche Macht aufgelöst werden.", is_dogma: true, heresy_group: null },
+    { dh_number: "DH 2333", text: "Die unbefleckte Gottesmutter, die immerwährende Jungfrau Maria, wurde nach Vollendung ihres irdischen Lebenslaufes mit Leib und Seele in die Herrlichkeit des Himmels aufgenommen.", is_dogma: true, heresy_group: null },
+
+    // --- Kirche und Hierarchie ---
+    { dh_number: "DH 998", text: "Es gibt ein Fegefeuer (Purgatorium), und die dort festgehaltenen Seelen werden durch die Gebete und Opfer der Gläubigen unterstützt.", is_dogma: true, heresy_group: null },
+    { dh_number: "DH 1823", text: "Der selige Apostel Petrus wurde von Christus dem Herrn zum Fürsten aller Apostel und zum sichtbaren Haupt der ganzen streitenden Kirche eingesetzt.", is_dogma: true, heresy_group: null },
+    { dh_number: "DH 1825", text: "Aufgrund göttlicher Einsetzung hat der heilige Petrus ewige Nachfolger in seinem Primat über die gesamte Kirche, nämlich die Bischöfe von Rom.", is_dogma: true, heresy_group: null },
+    { dh_number: "DH 1827", text: "Die Jurisdiktionsgewalt des Papstes ist wahrhaft bischöflich und unmittelbar und erstreckt sich über alle Kirchen, Hirten und Gläubigen.", is_dogma: true, heresy_group: null },
+    { dh_number: "DH 1839", text: "Der römische Papst ist unfehlbar, wenn er 'ex cathedra' spricht, das heißt, wenn er als Hirte und Lehrer aller Christen eine Glaubens- oder Sittenlehre als für die ganze Kirche verbindlich definiert.", is_dogma: true, heresy_group: null },
+    { dh_number: "DH 2286", text: "Nur diejenigen gehören wirklich als Glieder zur Kirche, die die Taufe empfangen haben, den wahren Glauben bekennen und sich weder vom Leib der Kirche getrennt haben noch von der rechtmäßigen Autorität ausgeschlossen wurden.", is_dogma: true, heresy_group: null },
+    { dh_number: "DH 2319", text: "Die Lehre, dass für das ewige Heil die Zugehörigkeit zur wahren Kirche Christi notwendig ist, darf nicht zu einer leeren Formel reduziert werden.", is_dogma: true, heresy_group: null },
+
             // --- HÄRESIEN (is_dogma: false) ---
             { dh_number: "DH 48", text: "Die eine Macht Gottes darf in drei Mächte/Substanzen/Gottheiten geteilt werden.", is_dogma: false, heresy_group: null },
             { dh_number: "DH 60", text: "Vater und Sohn sind dieselbe Person (Sabellianischer Irrtum).", is_dogma: false, heresy_group: "Sabellianismus" },
