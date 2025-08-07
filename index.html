@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wie katholisch bist du? - Das Quiz</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Crimson Pro', serif;
+            background-color: #fdf5e6;
+            color: #3b3b3b;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background-color: #fff;
+            padding: 20px 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            border: 1px solid #dcd1b3;
+        }
+
+        h1, h2, h3 {
+            color: #8B4513;
+            font-weight: 700;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+        }
+        
+        h2 {
+            border-bottom: 2px solid #e0d6b8;
+            padding-bottom: 10px;
+            margin-top: 30px;
+        }
+
+        button {
+            background-color: #8B4513;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            margin: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.2s;
+            font-family: 'Crimson Pro', serif;
+            font-weight: 700;
+        }
+
+        button:hover {
+            background-color: #A0522D;
+            transform: translateY(-2px);
+        }
+
+        #quiz-screen, #results-screen {
+            display: none;
+        }
+
+        #question-text {
+            font-size: 1.3em;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            min-height: 100px;
+        }
+
+        #progress-text {
+            margin-top: 20px;
+            font-style: italic;
+            color: #777;
+        }
+
+        .result-section {
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        .result-section h3 {
+            color: #8B4513;
+            border-bottom: 2px solid #8B4513;
+            padding-bottom: 5px;
+        }
+
+        .wrong-answer {
+            background-color: #fff3f3;
+            border-left: 5px solid #d9534f;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 0 5px 5px 0;
+        }
+
+        .correct-answer {
+            color: #5cb85c;
+            font-weight: bold;
+        }
+
+        .ecclesiastical-message {
+            margin-top: 30px;
+            padding: 20px;
+            border: 1px solid #8B4513;
+            border-radius: 5px;
+            background-color: #faf3e0;
+            text-align: left;
+            line-height: 1.7;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div id="start-screen">
+            <h1>Wie katholisch bist du?</h1>
+            <p style="font-size: 1.2em;">Prüfe dein Wissen über die Dogmen und Häresien der katholischen Kirche.</p>
+            <h2>Wähle eine Schwierigkeitsstufe:</h2>
+            <button onclick="startQuiz(10)">Einfach (10 Fragen)</button>
+            <button onclick="startQuiz(30)">Mittel (30 Fragen)</button>
+            <button onclick="startQuiz(100)">Schwer (100 Fragen)</button>
+        </div>
+
+        <div id="quiz-screen">
+            <h2 id="question-title">Frage X von Y</h2>
+            <p id="question-text"></p>
+            <button onclick="answer(true)">Wahr</button>
+            <button onclick="answer(false)">Falsch</button>
+            <p id="progress-text"></p>
+        </div>
+
+        <div id="results-screen">
+            <h2>Dein Ergebnis</h2>
+            <p id="score-text" style="font-size: 1.5em; font-weight: bold;"></p>
+            <p id="heresy-association-text" style="font-style: italic;"></p>
+            
+            <div id="wrong-answers-section" class="result-section" style="display: none;">
+                <h3>Deine Fehler zur Besserung</h3>
+                <div id="wrong-answers-list"></div>
+            </div>
+
+            <div id="perfect-score-message" class="ecclesiastical-message" style="display: none;">
+                <h3>Gratulamur!</h3>
+                <p>Mit großer Freude verkünden wir, dass du die Lehren der Kirche in ihrer Fülle erfasst hast. Dein Glaube ist stark und dein Wissen rein. Gehe hin in Frieden und sei ein Leuchtfeuer der Wahrheit in der Welt!</p>
+            </div>
+             <div id="imperfect-score-message" class="ecclesiastical-message" style="display: none;">
+                <h3>Mahnung zur Umkehr</h3>
+                <p>Dein Ergebnis zeigt, dass Wolken des Irrtums deinen Glauben verdunkeln. Doch verzage nicht! Die Mutter Kirche ruft dich zur Buße und zur erneuten Prüfung der Lehre. Die hier aufgezeigten Fehler sind eine Gelegenheit zur Umkehr. Nutze sie weise, studiere die Wahrheit und kehre mit reuevollem Herzen in die Arme der einen, wahren Kirche zurück.</p>
+                <div style="text-align:center; margin-top:20px;">
+                    <button onclick="location.reload()">Nochmals prüfen</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- DATENBANK DER FRAGEN ---
+        // is_dogma: true -> Aussage ist ein Dogma (Antwort "Wahr" ist korrekt)
+        // is_dogma: false -> Aussage ist eine Häresie (Antwort "Falsch" ist korrekt)
+        const allQuestions = [
+            // --- HÄRESIEN (is_dogma: false) ---
+            { dh_number: "DH 48", text: "Die eine Macht Gottes darf in drei Mächte/Substanzen/Gottheiten geteilt werden.", is_dogma: false, heresy_group: null },
+            { dh_number: "DH 60", text: "Vater und Sohn sind dieselbe Person (Sabellianischer Irrtum).", is_dogma: false, heresy_group: "Sabellianismus" },
+            { dh_number: "DH 61", text: "Der Sohn und der Heilige Geist sind Geschöpfe.", is_dogma: false, heresy_group: "Arianismus" },
+            { dh_number: "DH 82", text: "Die Dreieinigkeit kann als drei Götter geteilt werden.", is_dogma: false, heresy_group: "Tritheismus" },
+            { dh_number: "DH 1701", text: "Gott ist mit der Welt/Natur identisch (Pantheismus).", is_dogma: false, heresy_group: "Pantheismus" },
+            { dh_number: "DH 1802", text: "Es existiert nichts außer Materie.", is_dogma: false, heresy_group: "Materialismus" },
+            { dh_number: "DH 2074", text: "Der Glaube ist ein Sinn, der aus einem Bedürfnis nach dem Göttlichen entsteht.", is_dogma: false, heresy_group: "Modernismus" },
+            { dh_number: "DH 2082", text: "Alle Religionen sind wahr.", is_dogma: false, heresy_group: "Relativismus" },
+            { dh_number: "DH 54", text: "Der Sohn ist aus Nicht-Existierendem oder einer anderen Substanz/Wesen; er ist wandelbar/veränderlich.", is_dogma: false, heresy_group: "Arianismus" },
+            { dh_number: "DH 64", text: "Es gibt zwei Söhne: einen ewigen und einen nach der Fleischannahme.", is_dogma: false, heresy_group: "Nestorianismus" },
+            { dh_number: "DH 220", text: "Die Einheit der göttlichen und menschlichen Natur in Christus wird zu einer einzigen Natur.", is_dogma: false, heresy_group: "Monophysitismus" },
+            { dh_number: "DH 265", text: "Es gibt nur einen Willen und eine Operation in Christus.", is_dogma: false, heresy_group: "Monotheletismus" },
+            { dh_number: "DH 299", text: "Der Sohn Gottes ist adoptiert.", is_dogma: false, heresy_group: "Adoptionismus" },
+            { dh_number: "DH 2029", text: "Der historische Christus ist dem Glaubens-Christus unterlegen.", is_dogma: false, heresy_group: "Modernismus" },
+            { dh_number: "DH 2036", text: "Die Auferstehung ist kein historischer Fakt, sondern eine rein spirituelle Erfahrung.", is_dogma: false, heresy_group: "Modernismus" },
+            { dh_number: "DH 101", text: "Adam war von Natur aus sterblich, auch ohne die Sünde.", is_dogma: false, heresy_group: "Pelagianismus" },
+            { dh_number: "DH 102", text: "Säuglinge ziehen keine Erbsünde von Adam auf sich.", is_dogma: false, heresy_group: "Pelagianismus" },
+            { dh_number: "DH 1027", text: "Der freie Wille ohne Gnade hat nur die Macht zur Sünde.", is_dogma: false, heresy_group: "Jansenismus" },
+            { dh_number: "DH 1096", text: "Christus starb nur für die Auserwählten.", is_dogma: false, heresy_group: "Jansenismus" },
+            { dh_number: "DH 1379", text: "Außerhalb der Kirche wird keine Gnade gewährt.", is_dogma: false, heresy_group: "Jansenismus" },
+            { dh_number: "DH 2328", text: "Die Lehre von mehreren Urelternpaaren (Polygenismus) ist mit dem katholischen Glauben vereinbar.", is_dogma: false, heresy_group: null },
+            { dh_number: "DH 581", text: "Die Substanz von Brot und Wein bleibt nach der Wandlung im Altarssakrament erhalten.", is_dogma: false, heresy_group: "Wycliffismus" },
+            { dh_number: "DH 584", text: "Ein Bischof oder Priester in Todsünde kann Sakramente nicht gültig spenden.", is_dogma: false, heresy_group: "Donatismus" },
+            { dh_number: "DH 626", text: "Die Kommunion unter beiderlei Gestalten für Laien ist unter allen Umständen heilsnotwendig.", is_dogma: false, heresy_group: "Hussiten" },
+            { dh_number: "DH 741", text: "Sakramente geben die Gnade nicht aus sich selbst (ex opere operato), sondern nur durch den Glauben des Empfängers.", is_dogma: false, heresy_group: "Protestantismus" },
+            { dh_number: "DH 847", text: "Die Sakramente des Neuen Gesetzes sind nicht heilsnotwendig, sondern nur Zeichen des Glaubens.", is_dogma: false, heresy_group: "Protestantismus" },
+            { dh_number: "DH 977", text: "Die Kirche irrt, wenn sie lehrt, dass das Eheband wegen Ehebruchs nicht aufgelöst werden kann.", is_dogma: false, heresy_group: null },
+            { dh_number: "DH 1529", text: "Die Lehre von der Transsubstantiation darf in der Katechese vernachlässigt werden.", is_dogma: false, heresy_group: "Synode von Pistoia" },
+            { dh_number: "DH 2040", text: "Die Sakramente entstanden aus einer Interpretation der Ideen Christi durch die Apostel und ihre Nachfolger.", is_dogma: false, heresy_group: "Modernismus" },
+            { dh_number: "DH 1502", text: "Die Macht des kirchlichen Dienstes und der Regierung wird von der Gemeinschaft der Gläubigen auf die Hirten übertragen.", is_dogma: false, heresy_group: "Synode von Pistoia" },
+            { dh_number: "DH 1503", text: "Der römische Papst ist nur ein ministerielles Haupt, das seine Macht von der gesamten Kirche empfängt.", is_dogma: false, heresy_group: "Synode von Pistoia" },
+            { dh_number: "DH 1755", text: "Kirche und Staat sind zu trennen.", is_dogma: false, heresy_group: "Liberalismus" },
+            { dh_number: "DH 1831", text: "Der römische Papst besitzt nicht die volle und höchste Jurisdiktionsgewalt über die universale Kirche.", is_dogma: false, heresy_group: "Gallikanismus" },
+            { dh_number: "DH 2056", text: "Die römische Kirche wurde nicht durch eine Anordnung Christi, sondern aus rein politischen Gründen zum Haupt aller Kirchen.", is_dogma: false, heresy_group: "Modernismus" },
+            { dh_number: "DH 2091", text: "Die kirchliche Autorität stammt aus dem Gewissen der Gläubigen und muss daher demokratisch sein.", is_dogma: false, heresy_group: "Modernismus" },
+            { dh_number: "DH 2287", text: "Die Bischöfe sind in der Regierung ihrer Diözesen vom römischen Papst völlig unabhängig.", is_dogma: false, heresy_group: null },
+
+            // --- DOGMEN (is_dogma: true) ---
+            { dh_number: "DH 39", text: "Wer gerettet werden will, muss vor allem den katholischen Glauben an die Dreieinigkeit halten, ohne die Personen zu vermischen oder die Substanz zu trennen.", is_dogma: true, heresy_group: null },
+            { dh_number: "DH 86", text: "Der Heilige Geist ist Herr und Lebensspender und geht vom Vater und dem Sohn aus.", is_dogma: true, heresy_group: null },
+            { dh_number: "DH 431", text: "Es gibt nur eine höchste Realität (summa res), ungeschaffen und unbegreiflich, nämlich die göttliche Essenz, die aber nicht die vierte Gottheit ist.", is_dogma: true, heresy_group: null },
+            { dh_number: "DH 1782", text: "Es gibt einen wahren, lebendigen Gott, Schöpfer und Herr, der von der Welt real und dem Wesen nach unterschieden ist.", is_dogma: true, heresy_group: null },
+            { dh_number: "DH 1801", text: "Es gibt nur einen wahren Gott, unseren Schöpfer und Herrn.", is_dogma: true, heresy_group: null },
+            { dh_number: "DH 148", text: "In Christus gibt es zwei Naturen, eine göttliche und eine menschliche, die unvermischt und ungetrennt in einer Person geeint sind.", is_dogma: true, heresy_group: null },
+            { dh_number: "DH 255", text: "Gott das Wort selbst, einer der heiligen Dreieinigkeit, wurde Fleisch aus dem Heiligen Geist und Maria, der immerwährenden Jungfrau, und wurde Mensch.", is_dogma: true, heresy_group: null },
+            { dh_number: "DH 263", text: "In Christus gibt es zwei natürliche Willen und zwei natürliche Operationen, einen göttlichen und einen menschlichen.", is_dogma: true, heresy_group: null },
+            { dh_number: "DH 708", text: "Eine Person der Dreieinigkeit, der Sohn, nahm eine wahre und vollkommene menschliche Natur an, um uns zu erlösen.", is_dogma: true, heresy_group: null },
+            { dh_number: "DH 2184", text: "Die Seele Christi besaß vom Augenblick ihrer Empfängnis an das Wissen um alles im Wort Gottes.", is_dogma: true, heresy_group: null },
+            { dh_number: "DH 783", text: "Die Sünde Adams hat nicht nur ihm, sondern auch seinen Nachkommen geschadet und den Tod sowie Sündenstrafen über alle gebracht.", is_dogma: true, heresy_group: null },
+            { dh_number: "DH 791", text: "Die Gnade Christi ist für alle heilsamen Akte, einschließlich des Anfangs des Glaubens, absolut notwendig.", is_dogma: true, heresy_group: null },
+            { dh_number: "DH 797", text: "Der freie Wille ist durch die Sünde Adams geschwächt und geneigt, aber nicht ausgelöscht.", is_dogma: true, heresy_group: null },
+            { dh_number: "DH 2327", text: "Auch wenn die Evolution des menschlichen Körpers diskutiert werden kann, ist die Seele direkt von Gott geschaffen.", is_dogma: true, heresy_group: null },
+            { dh_number: "DH 844", text: "Es gibt genau sieben Sakramente des Neuen Bundes, die alle von Jesus Christus eingesetzt wurden.", is_dogma: true, heresy_group: null },
+            { dh_number: "DH 851", text: "Die Sakramente wirken aus sich selbst heraus (ex opere operato) und verleihen die Gnade, wenn der Empfänger kein Hindernis in den Weg legt.", is_dogma: true, heresy_group: null },
+            { dh_number: "DH 883", text: "Im Sakrament der Eucharistie sind Leib und Blut Christi zusammen mit seiner Seele und Gottheit wahrhaft, wirklich und substantiell gegenwärtig.", is_dogma: true, heresy_group: null },
+            { dh_number: "DH 884", text: "Die ganze Substanz des Brotes wird in den Leib und die ganze Substanz des Weines wird in das Blut Christi verwandelt (Transsubstantiation).", is_dogma: true, heresy_group: null },
+            { dh_number: "DH 916", text: "Die sakramentale Beichte aller schweren Sünden nach der Taufe ist von göttlichem Recht und heilsnotwendig.", is_dogma: true, heresy_group: null },
+            { dh_number: "DH 2333", text: "Die unbefleckte Gottesmutter, die immerwährende Jungfrau Maria, wurde nach Vollendung ihres irdischen Lebenslaufes mit Leib und Seele in die Herrlichkeit des Himmels aufgenommen.", is_dogma: true, heresy_group: null },
+            { dh_number: "DH 1823", text: "Der selige Apostel Petrus wurde von Christus, dem Herrn, zum Fürsten aller Apostel und zum sichtbaren Haupt der ganzen streitenden Kirche eingesetzt.", is_dogma: true, heresy_group: null },
+            { dh_number: "DH 1825", text: "Der heilige Petrus hat auf ewig Nachfolger im Primat über die gesamte Kirche.", is_dogma: true, heresy_group: null },
+            { dh_number: "DH 1839", text: "Der römische Papst ist unfehlbar, wenn er ex cathedra spricht, d.h. wenn er in Ausübung seines Amtes als Hirte und Lehrer aller Christen eine Glaubens- oder Sittenlehre für die ganze Kirche als verbindlich erklärt.", is_dogma: true, heresy_group: null },
+            { dh_number: "DH 2286", text: "Nur diejenigen gehören zum mystischen Leib Christi, die die Taufe empfangen, den wahren Glauben bekennen und sich weder vom Leib getrennt haben noch von der rechtmäßigen Autorität ausgeschlossen wurden.", is_dogma: true, heresy_group: null },
+            { dh_number: "DH 2319", text: "Die Notwendigkeit der Zugehörigkeit zur wahren katholischen Kirche für das ewige Heil ist eine grundlegende Lehre.", is_dogma: true, heresy_group: null }
+        ];
+
+
+        let quizQuestions = [];
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let score = 0;
+
+        const startScreen = document.getElementById('start-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultsScreen = document.getElementById('results-screen');
+
+        function startQuiz(numQuestions) {
+            // Reset state
+            currentQuestionIndex = 0;
+            userAnswers = [];
+            score = 0;
+
+            // Randomly select questions
+            const shuffled = [...allQuestions].sort(() => 0.5 - Math.random());
+            quizQuestions = shuffled.slice(0, Math.min(numQuestions, allQuestions.length));
+
+            startScreen.style.display = 'none';
+            quizScreen.style.display = 'block';
+            resultsScreen.style.display = 'none';
+
+            displayQuestion();
+        }
+
+        function displayQuestion() {
+            if (currentQuestionIndex < quizQuestions.length) {
+                const question = quizQuestions[currentQuestionIndex];
+                document.getElementById('question-title').innerText = `Frage ${currentQuestionIndex + 1} von ${quizQuestions.length}`;
+                document.getElementById('question-text').innerText = question.text;
+                document.getElementById('progress-text').innerText = `Referenz: ${question.dh_number}`;
+            } else {
+                showResults();
+            }
+        }
+
+        function answer(userAnswer) {
+            const question = quizQuestions[currentQuestionIndex];
+            const isCorrect = userAnswer === question.is_dogma;
+
+            if (isCorrect) {
+                score++;
+            }
+
+            userAnswers.push({
+                question: question,
+                userAnswer: userAnswer,
+                isCorrect: isCorrect
+            });
+
+            currentQuestionIndex++;
+            displayQuestion();
+        }
+
+        function showResults() {
+            quizScreen.style.display = 'none';
+            resultsScreen.style.display = 'block';
+
+            const percentage = Math.round((score / quizQuestions.length) * 100);
+            document.getElementById('score-text').innerText = `Du hast ${score} von ${quizQuestions.length} Fragen richtig beantwortet (${percentage}%).`;
+
+            const wrongAnswers = userAnswers.filter(a => !a.isCorrect);
+            const heresyCounts = {};
+            
+            if (wrongAnswers.length > 0) {
+                const wrongAnswersList = document.getElementById('wrong-answers-list');
+                wrongAnswersList.innerHTML = '';
+                wrongAnswers.forEach(ans => {
+                    if (ans.question.heresy_group) {
+                        heresyCounts[ans.question.heresy_group] = (heresyCounts[ans.question.heresy_group] || 0) + 1;
+                    }
+                    const listItem = document.createElement('div');
+                    listItem.classList.add('wrong-answer');
+                    listItem.innerHTML = `
+                        <p><strong>Aussage (DH ${ans.question.dh_number}):</strong> "${ans.question.text}"</p>
+                        <p>Deine Antwort war: <strong>${ans.userAnswer ? "Wahr" : "Falsch"}</strong>.</p>
+                        <p class="correct-answer">Die korrekte Antwort ist: ${ans.question.is_dogma ? "Wahr" : "Falsch"}.</p>
+                        <p><small>${ans.question.is_dogma ? "Begründung: Dies ist ein Glaubenssatz der Kirche." : "Begründung: Dies beschreibt eine von der Kirche verurteilte Häresie."}</small></p>
+                    `;
+                    wrongAnswersList.appendChild(listItem);
+                });
+
+                // Calculate heresy association
+                let associationText = "";
+                if (Object.keys(heresyCounts).length > 0) {
+                    const totalWrong = wrongAnswers.length;
+                    let catholicPercentage = 100;
+                    associationText = "Deine Fehler zeigen eine Neigung zu folgenden Irrtümern: ";
+                    const associations = Object.entries(heresyCounts).map(([group, count]) => {
+                        const heresyPercentage = Math.round((count / totalWrong) * percentage);
+                        catholicPercentage -= heresyPercentage;
+                        return `${heresyPercentage}% ${group}`;
+                    });
+                     document.getElementById('score-text').innerText = `Du bist zu ${Math.max(0, catholicPercentage)}% katholisch.`;
+                    associationText += associations.join(', ') + ".";
+                }
+                document.getElementById('heresy-association-text').innerText = associationText;
+
+                document.getElementById('wrong-answers-section').style.display = 'block';
+                document.getElementById('imperfect-score-message').style.display = 'block';
+                document.getElementById('perfect-score-message').style.display = 'none';
+
+            } else {
+                 document.getElementById('heresy-association-text').innerText = "Dein Glaube ist rein und frei von jeglicher häretischer Neigung.";
+                document.getElementById('wrong-answers-section').style.display = 'none';
+                document.getElementById('imperfect-score-message').style.display = 'none';
+                document.getElementById('perfect-score-message').style.display = 'block';
+            }
+        }
+    </script>
+
+</body>
+</html>
